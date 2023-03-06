@@ -5,7 +5,7 @@ import wave
 import io
 from time import sleep
 
-def post_audio_query(text:str) -> dict:
+def post_audio_query(text: str) -> dict:
     params = {'text': text, 'speaker': 1}
     res = requests.post('http://localhost:50021/audio_query', params=params)
     return res.json()
@@ -20,10 +20,9 @@ def post_synthesis(audio_query_response: dict) -> bytes:
         params=params,
         headers=headers
     )
-    wav_file = res.content
-    return wav_file
+    return res.content
 
-def play_wav_file(wav_file:bytes):
+def play_wavfile(wav_file: bytes):
     wr: wave.Wave_read = wave.open(io.BytesIO(wav_file))
     p = pyaudio.PyAudio()
     stream = p.open(
@@ -41,7 +40,7 @@ def play_wav_file(wav_file:bytes):
     stream.close()
     p.terminate()
 
-def text_to_voice(text:str):
+def text_to_voice(text: str):
     res = post_audio_query(text)
     wav_file = post_synthesis(res)
-    play_wav_file(wav_file)
+    play_wavfile(wav_file)

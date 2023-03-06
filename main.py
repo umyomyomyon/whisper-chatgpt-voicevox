@@ -19,7 +19,7 @@ def main():
         messages.append(
             {'role': 'assistant', 'content': response}
         )
-        print(f'User: {text}')
+        print(f'User   : {text}')
         print(f'ChatGPT: {response}')
         text_to_voice(response)
 
