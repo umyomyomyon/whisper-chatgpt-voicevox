@@ -22,7 +22,7 @@ def post_synthesis(audio_query_response: dict) -> bytes:
     )
     return res.content
 
-def play_wavfile(wav_file: bytes):
+def play_wav(wav_file: bytes):
     wr: wave.Wave_read = wave.open(io.BytesIO(wav_file))
     p = pyaudio.PyAudio()
     stream = p.open(
@@ -42,5 +42,5 @@ def play_wavfile(wav_file: bytes):
 
 def text_to_voice(text: str):
     res = post_audio_query(text)
-    wav_file = post_synthesis(res)
-    play_wavfile(wav_file)
+    wav = post_synthesis(res)
+    play_wav(wav)
